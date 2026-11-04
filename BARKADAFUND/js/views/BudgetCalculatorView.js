@@ -12,15 +12,15 @@ class BudgetCalculatorView extends View {
 
     const statusText = summary.isOverBudget
       ? `Over Budget by ₱${Math.abs(summary.remainingBudget).toLocaleString(undefined, { minimumFractionDigits: 2 })}`
-      : `Within Budget (₱${summary.remainingBudget.toLocaleString(undefined, { minimumFractionDigits: 2 })} left)`;
+      : `Within Budget (₱${summary.remainingBudget.toLocaleString(undefined, { minimumFractionDigits: 2 })} remaining)`;
 
     return `
-      <h2>Barkada Ambagan & Budget Summary</h2>
+      <h2>Group Contribution & Budget Summary</h2>
       <div class="error-slot"></div>
 
       <div class="stats-grid">
         <div class="stat-box">
-          <div class="stat-label">Ambagan / Person</div>
+          <div class="stat-label">Contribution / Person</div>
           <div class="stat-value">₱${summary.ambaganPerPerson.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
         </div>
         <div class="stat-box">
@@ -35,7 +35,7 @@ class BudgetCalculatorView extends View {
 
       <div class="form-row-2">
         <div class="form-group">
-          <label for="headcount-input">Barkada Headcount</label>
+          <label for="headcount-input">Group Headcount</label>
           <input
             type="number"
             id="headcount-input"
@@ -68,8 +68,8 @@ class BudgetCalculatorView extends View {
         return;
       }
 
-      const headcountEl = this._parentElement.querySelector('#headcount-input');
-      const budgetEl = this._parentElement.querySelector('#target-budget-input');
+
+      
 
       handler({
         headcount: headcountEl.value,
