@@ -9,6 +9,7 @@ const INITIAL_EXPENSES = [
 export const state = {
   expenses: [],
   editingId: null,
+  lastDeleted: null, // Dito itatago ang huling binurang gastusin para sa Undo
   settings: {
     headcount: 6,
     targetBudget: 8000
@@ -77,6 +78,7 @@ export function addExpense({ name, category, unitCost, quantity }) {
     quantity: Number(quantity)
   };
   state.expenses.push(newExpense);
+  state.lastDeleted = null; // I-reset ang undo kapag nagdagdag ng bago
   _recomputeSummary();
   _saveToLocalStorage();
 }
@@ -110,11 +112,26 @@ export function updateExpense({ name, category, unitCost, quantity }) {
   _saveToLocalStorage();
 }
 
-export function deleteExpense(id) {
-  state.expenses = state.expenses.filter(item => item.id !== id);
-  if (state.editingId === id) {
-    state.editingId = null;
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export function undoDeleteExpense() {
+  if (!state.lastDeleted) return;
+
+  // Ibalik ang binurang plano sa listahan
+  state.expenses.push(state.lastDeleted);
+  state.lastDeleted = null; // Linisin matapos mai-undo
   _recomputeSummary();
   _saveToLocalStorage();
 }
