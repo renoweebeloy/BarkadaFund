@@ -6,13 +6,24 @@ class ExpenseListView extends View {
   }
 
   _generateMarkup() {
-    const expenses = this._data || [];
+    const { expenses = [], lastDeleted = null } = this._data || {};
+
+    // Undo Banner sa kulay berde at purong Ingles
+    const undoMarkup = lastDeleted
+      ? `
+        <div class="undo-banner">
+          <span>Deleted <strong>"${lastDeleted.name}"</strong>.</span>
+          <button type="button" class="btn btn-undo">Undo Delete</button>
+        </div>
+      `
+      : '';
 
     if (expenses.length === 0) {
       return `
         <h2>Planned Outing Expenses</h2>
+        ${undoMarkup}
         <div class="empty-state">
-          <p>Walay naka-lista nga gastos. Pag-add og expense sa form aron ma-compute ang ambagan!</p>
+          <p>No expenses listed yet. Add an expense using the form to compute the group share!</p>
         </div>
       `;
     }
@@ -37,6 +48,7 @@ class ExpenseListView extends View {
 
     return `
       <h2>Planned Outing Expenses (${expenses.length})</h2>
+      ${undoMarkup}
       <table class="expense-table">
         <thead>
           <tr>
@@ -54,7 +66,7 @@ class ExpenseListView extends View {
     `;
   }
 
-  addHandlerItemActions(onEdit, onDelete) {
+  addHandlerItemActions(onEdit, onDelete, onUndo) {
     this._parentElement.addEventListener('click', e => {
       const editBtn = e.target.closest('.btn-edit');
       if (editBtn) {
@@ -65,6 +77,12 @@ class ExpenseListView extends View {
       const deleteBtn = e.target.closest('.btn-delete');
       if (deleteBtn) {
         onDelete(deleteBtn.dataset.id);
+        return;
+      }
+
+      const undoBtn = e.target.closest('.btn-undo');
+      if (undoBtn) {
+        onUndo();
       }
     });
   }
