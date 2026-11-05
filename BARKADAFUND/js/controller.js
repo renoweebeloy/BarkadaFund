@@ -93,7 +93,8 @@ function init() {
   model.initModel();
   renderAllViews();
 
-
+ expenseFormView.addHandlerSubmit(controlSaveExpense);
+ expenseFormView.addHandlerCancelEdit(controlCancelEdit)
   
   expenseListView.addHandlerItemActions(
     controlStartEdit,
