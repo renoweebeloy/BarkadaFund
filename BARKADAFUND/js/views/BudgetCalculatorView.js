@@ -68,7 +68,8 @@ class BudgetCalculatorView extends View {
         return;
       }
 
-
+ const headcountEl = this._parentElement.querySelector('#headcount-input');
+ const budgetEl = this._parentElement.querySelector('#target-budget-input');
       
 
       handler({
