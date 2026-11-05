@@ -7,7 +7,12 @@ function renderAllViews() {
   expenseFormView.render({
     editingExpense: model.getEditingExpense()
   });
-  expenseListView.render(model.state.expenses);
+
+  expenseListView.render({
+    expenses: model.state.expenses,
+    lastDeleted: model.state.lastDeleted
+  });
+
   budgetCalculatorView.render({
     settings: model.state.settings,
     summary: model.state.summary
@@ -19,9 +24,8 @@ function controlSaveExpense(formData) {
   const costNum = Number(unitCost);
   const qtyNum = Number(quantity);
 
-  // Form validation: delegates error display to View
   if (!name || !name.trim()) {
-    expenseFormView.renderError('Please enter an expense item name (e.g. Van Rental).');
+    expenseFormView.renderError('Please enter an expense item name (e.g., Van Rental).');
     return;
   }
 
@@ -59,12 +63,17 @@ function controlDeleteExpense(id) {
   renderAllViews();
 }
 
+function controlUndoDelete() {
+  model.undoDeleteExpense();
+  renderAllViews();
+}
+
 function controlUpdateTripSettings({ headcount, targetBudget }) {
   const countNum = Number(headcount);
   const budgetNum = Number(targetBudget);
 
   if (!Number.isInteger(countNum) || countNum < 1) {
-    budgetCalculatorView.renderError('Barkada headcount must be at least 1 person.');
+    budgetCalculatorView.renderError('Group headcount must be at least 1 person.');
     return;
   }
 
@@ -84,12 +93,15 @@ function init() {
   model.initModel();
   renderAllViews();
 
-  // Wire event handlers to controller actions
-  expenseFormView.addHandlerSubmit(controlSaveExpense);
-  expenseFormView.addHandlerCancelEdit(controlCancelEdit);
-  expenseListView.addHandlerItemActions(controlStartEdit, controlDeleteExpense);
+ expenseFormView.addHandlerSubmit(controlSaveExpense);
+ expenseFormView.addHandlerCancelEdit(controlCancelEdit)
+  
+  expenseListView.addHandlerItemActions(
+    controlStartEdit,
+    controlDeleteExpense,
+    controlUndoDelete
+  );
   budgetCalculatorView.addHandlerSettingsChange(controlUpdateTripSettings);
 }
 
-// Start application
 init();
