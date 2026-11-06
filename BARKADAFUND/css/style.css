@@ -292,3 +292,79 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 0.6px;
 }
+
+undo-banner {
+ background: #ecfdf5;
+ border: 1px solid #10b981;
+ color: #065f46;
+ padding: 0.75rem 1rem;
+ border-radius: 8px;
+ margin-bottom: 1.25rem;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ font-size: 0.9rem;
+ animation: fadeIn 0.25s ease-in-out;
+}
+.btn-undo {
+ background: #0f766e;
+ color: #ffffff;
+ padding: 0.45rem 0.9rem;
+ border-radius: 6px;
+ font-size: 0.82rem;
+ border: none;
+ cursor: pointer;
+ font-weight: 700;
+ transition: background 0.15s ease;
+}
+.btn-undo:hover {
+ background: #115e59;
+}
+@keyframes fadeIn {
+ from {
+ opacity: 0;
+ transform: translateY(-4px);
+ }
+ to {
+ opacity: 1;
+ transform: translateY(0);
+ }
+}
+
+undo-banner {
+ background: #ecfdf5;
+ border: 1px solid #10b981;
+ color: #065f46;
+ padding: 0.75rem 1rem;
+ border-radius: 8px;
+ margin-bottom: 1.25rem;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ font-size: 0.9rem;
+ animation: fadeIn 0.25s ease-in-out;
+}
+.btn-undo {
+ background: #0f766e;
+ color: #ffffff;
+ padding: 0.45rem 0.9rem;
+ border-radius: 6px;
+ font-size: 0.82rem;
+ border: none;
+ cursor: pointer;
+ font-weight: 700;
+ transition: background 0.15s ease;
+}
+.btn-undo:hover {
+ background: #115e59;
+}
+@keyframes fadeIn {
+ from {
+ opacity: 0;
+ transform: translateY(-4px);
+ }
+ to {
+ opacity: 1;
+ transform: translateY(0);
+ }
+}
