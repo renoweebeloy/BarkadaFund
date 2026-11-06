@@ -112,20 +112,19 @@ export function updateExpense({ name, category, unitCost, quantity }) {
   _saveToLocalStorage();
 }
 
+export function deleteExpense(id) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+ const itemToDelete = state.expenses.find(item => item.id === id);
+ if (itemToDelete) {
+ state.lastDeleted = { ...itemToDelete };
+ }
+ state.expenses = state.expenses.filter(item => item.id !== id);
+ if (state.editingId === id) {
+ state.editingId = null;
+ }
+ _recomputeSummary();
+ _saveToLocalStorage();
+}
 
 export function undoDeleteExpense() {
   if (!state.lastDeleted) return;

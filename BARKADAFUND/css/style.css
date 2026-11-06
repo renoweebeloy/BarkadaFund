@@ -292,6 +292,7 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 0.6px;
 }
+<<<<<<< HEAD
 
 undo-banner {
  background: #ecfdf5;
@@ -368,3 +369,5 @@ undo-banner {
  transform: translateY(0);
  }
 }
+=======
+>>>>>>> d701bbbd4c8090a61bdcc287bbbc917a2f298c89
